@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+from kepler.exceptions import InvalidDataError
+from kepler.records import GeoRecord
 import json
 import pysolr
 import requests
@@ -30,8 +32,12 @@ class SolrServiceManager(object):
     def _validateRecord(self, record):
         """Validate metadata record to match solr config
 
-        :param dict record: metadata object
+        :param GeoRecord record: GeoRecord object
         :raises AttributeError: when missing required key
+        :raises InvalidDataError: when record is not type GeoRecord
         """
-        if not ('uuid' in record):
+        if not isinstance(record, GeoRecord):
+            raise InvalidDataError(self, record)
+
+        if 'uuid' not in record.__dict__:
             raise AttributeError("missing uuid")
