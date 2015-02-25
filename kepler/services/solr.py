@@ -32,12 +32,8 @@ class SolrServiceManager(object):
     def _validateRecord(self, record):
         """Validate metadata record to match solr config
 
-        :param GeoRecord record: GeoRecord object
+        :param record: GeoRecord object
         :raises AttributeError: when missing required key
-        :raises InvalidDataError: when record is not type GeoRecord
         """
-        if not isinstance(record, GeoRecord):
-            raise InvalidDataError(self, record)
-
-        if 'uuid' not in record.__dict__:
+        if 'uuid' not in record:
             raise AttributeError("missing uuid")

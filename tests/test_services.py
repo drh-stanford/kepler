@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from flask import current_app
 from io import BytesIO
 from kepler.exceptions import InvalidDataError
-from kepler.records import GeoRecord
+from kepler.records import MitRecord
 from kepler.services.geoserver import GeoServerServiceManager
 from kepler.services.solr import SolrServiceManager
 from mock import patch, Mock
@@ -55,17 +55,9 @@ class GeoServerTestCase(unittest.TestCase):
 class SolrTestCase(BaseTestCase):
     def setUp(self):
         super(SolrTestCase, self).setUp()
-<<<<<<< HEAD
-        
-        self.testRecord = GeoRecord(uuid='test_uuid')
-        self.testBadRecord = GeoRecord(no_uuid='test_uuid')
-        self.testNonRecord = { # not a GeoRecord
-=======
 
-        self.testRecord = {
->>>>>>> f34695707cb4071ef696dca5aca5bc4b683e35d6
-            'uuid': 'test_uuid'
-        }
+        self.testRecord = MitRecord().as_dict()
+        self.testBadRecord = {'no_uuid':'test_uuid'}
         self.testUrl = current_app.config['SOLR_URL']
         self.mgr = SolrServiceManager(self.testUrl)
 
@@ -76,9 +68,6 @@ class SolrTestCase(BaseTestCase):
 
     def testValidateRecord(self):
         self.mgr._validateRecord(self.testRecord)
-
-        with self.assertRaises(InvalidDataError):
-            self.mgr._validateRecord(self.testNonRecord)
 
         with self.assertRaises(AttributeError):
             self.mgr._validateRecord(self.testBadRecord)
