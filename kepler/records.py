@@ -134,7 +134,7 @@ class GeoRecord(BaseRecord):
             'layer_geom_type_s': self.layer_geom_type_s,
             'layer_modified_dt': self.layer_modified_dt,
             'layer_slug_s': self.layer_slug_s,
-            'solr_bbox': self.solr_bbox,
+            # 'solr_bbox': self.solr_bbox,
             'solr_geom': self.solr_geom,
             'solr_year_i': self.solr_year_i,
             'dc_creator_sm': self.dc_creator_sm,
